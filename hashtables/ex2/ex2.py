@@ -1,22 +1,24 @@
 #  Hint:  You may not need all of these.  Remove the unused functions.
 class Ticket:
     def __init__(self, source, destination):
-        self.source = source    # Starting Airport
-        self.destination = destination # Next Airport
-        self.tickets = {self.destination, self.source}
-        print(self.tickets)
+        self.source = source    # Current Airport
+        self.destination = destination  # Next Airport
+
+        # Ticket Format: [self.source, self.destination]
         # First Ticket: source = None, destination = next
         # Last Ticket: source = prev, destination = None
 
 
 def reconstruct_trip(tickets, length):
     route = []
+    cache = {s.source: s for s in tickets}
 
+    destination = "NONE"
+
+    for i in range(length):
+        destination = cache[destination].destination
+
+        route.append(destination)
+
+    # print("Final Route: ", route)
     return route
-
-
-if __name__ == "__main__":
-
-    ticket_1 = Ticket("NONE", "PDX")
-    ticket_2 = Ticket("PDX", "DCA")
-    ticket_3 = Ticket("DCA", "NONE")
